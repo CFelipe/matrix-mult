@@ -1,5 +1,5 @@
-CC = g++
-CFLAGS = -std=c++11 -g -Wall
+CC = clang++
+CFLAGS = -std=c++11 -stdlib=libc++ -O3 -g -Wall
 
 .PHONY: all clean
 
