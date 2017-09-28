@@ -7,19 +7,37 @@
 using namespace std;
 
 void multThread(int rangeA, int rangeB, int m, int matrixA[], int matrixB[], int matrixC[]) {
+    cout << rangeA << endl;
+    cout << m << endl;
+    int matI, matJ, element, sum, k;
+
+    for(element = rangeA; element <= rangeB; ++element) {
+        sum = 0;
+        matI = element / m;
+        matJ = element % m;
+        for(k = 0; k < m; ++k) {
+            sum += matrixA[(matI * m) + k] * matrixB[(k * m) + matJ];
+        }
+        matrixC[(matI * m) + matJ] = sum;
+    }
 }
 
-void multiply(int m, int matrixA[], int matrixB[], int matrixC[]) {
-    int i, j, k, sum;
-    for(i = 0; i < m; ++i) {
-        for(j = 0; j < m; ++j) {
-            sum = 0;
-            for(k = 0; k < m; ++k) {
-                sum += matrixA[(i * m) + k] * matrixB[(k * m) + j];
-            }
-            matrixC[(i * m) + j] = sum;
-        }
+void multiplyConcurrent(int threadQty, int m, int matrixA[], int matrixB[], int matrixC[]) {
+    int threadElements = (m * m) / threadQty;
+    int remainder = (m * m) % threadQty;
+    int rangeA, rangeB;
+
+    int i;
+    for(i = 0; i < threadQty; ++i) {
+        rangeA = i * threadElements;
+        rangeB = ((i + 1) * threadElements) - 1;
+        if(i == threadQty - 1) { rangeB += remainder; }
+        multThread(rangeA, rangeB, m, matrixA, matrixB, matrixC);
+        cout << "Thread " << (i + 1) << ": ";
+        cout << rangeA << " | " << rangeB;
+        cout << endl;
     }
+
 }
 
 int main(int argc, char *argv[]) {
@@ -46,21 +64,8 @@ int main(int argc, char *argv[]) {
 
     int* matrixC = new int[m * m];
 
-    int threadElements = m / threadQty;
-    int remainder = m % threadQty;
-    int rangeA, rangeB;
-
-    int i;
-    for(i = 0; i < threadQty; ++i) {
-        cout << "Thread " << (i + 1) << ": ";
-        rangeA = i * threadElements;
-        rangeB = ((i + 1) * threadElements) - 1;
-        if(i == threadQty - 1) { rangeB += remainder; }
-        cout << rangeA << " | " << rangeB;
-        cout << endl;
-    }
-    //multiplyConcurrent(m, matrixA, matrixB, matrixC);
-    //printMatrix(m, matrixC);
+    multiplyConcurrent(threadQty, m, matrixA, matrixB, matrixC);
+    printMatrix(m, matrixC);
 
     return 0;
 }
