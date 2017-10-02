@@ -1,10 +1,12 @@
-// Matrix multiplication
+// Multiplicação de matrizes (sequencial)
 
 #include <iostream>
 #include <string>
+#include <chrono>
 #include "common.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void multiply(int m, int matrixA[], int matrixB[], int matrixC[]) {
     int i, j, k, sum;
@@ -41,7 +43,12 @@ int main(int argc, char *argv[]) {
     readMatrixFromFile(filenameB, m, matrixB);
 
     int* matrixC = new int[m * m];
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     multiply(m, matrixA, matrixB, matrixC);
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+
+    auto duration = duration_cast<milliseconds>(t2 - t1).count();
+    cout << duration << "ms" << endl;
 
     //printMatrix(m, matrixC);
 

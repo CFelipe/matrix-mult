@@ -1,12 +1,14 @@
-// Matrix multiplication (concurrent)
+// Multiplicação de matrizes (concorrente)
 
 #include <iostream>
 #include <string>
+#include <chrono>
 #include <thread>
 #include <vector>
 #include "common.h"
 
 using namespace std;
+using namespace std::chrono;
 
 void multThread(int rangeA, int rangeB, int m, int matrixA[], int matrixB[], int matrixC[]) {
     int matI, matJ, element, sum, k;
@@ -35,10 +37,6 @@ void multiplyConcurrent(int threadQty, int m, int matrixA[], int matrixB[], int 
         rangeB = ((i + 1) * threadElements) - 1;
         if(i == threadQty - 1) { rangeB += remainder; }
         threads.emplace_back(multThread, rangeA, rangeB, m, matrixA, matrixB, matrixC);
-        //multThread(rangeA, rangeB, m, matrixA, matrixB, matrixC);
-        //cout << "Thread " << (i + 1) << ": ";
-        //cout << rangeA << " | " << rangeB;
-        //cout << endl;
     }
 
     for(auto& t : threads) {
@@ -70,7 +68,12 @@ int main(int argc, char *argv[]) {
 
     int* matrixC = new int[m * m];
 
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
     multiplyConcurrent(threadQty, m, matrixA, matrixB, matrixC);
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+
+    auto duration = duration_cast<milliseconds>(t2 - t1).count();
+    cout << duration << "ms" << endl;
     //printMatrix(m, matrixC);
 
     return 0;
