@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     int* matrixC = new int[m * m];
 
     multiplyConcurrent(threadQty, m, matrixA, matrixB, matrixC);
-    printMatrix(m, matrixC);
+    //printMatrix(m, matrixC);
 
     return 0;
 }

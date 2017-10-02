@@ -1,5 +1,14 @@
-CC = clang++
-CFLAGS = -std=c++11 -stdlib=libc++ -O3 -g -Wall
+CFLAGS = -std=c++11 -O3 -g -Wall
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+	CC = g++
+	CFLAGS += -pthread
+endif
+ifeq ($(UNAME_S),Darwin)
+	CC = clang++
+	CFLAGS += -stdlib=libc++
+endif
 
 .PHONY: all clean
 
