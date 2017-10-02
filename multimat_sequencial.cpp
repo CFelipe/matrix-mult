@@ -34,8 +34,12 @@ int main(int argc, char *argv[]) {
     string filenameSuffix = to_string(m) + "x" + to_string(m) + ".txt";
     string filenameA = filenamePrefix + "A" + filenameSuffix;
     string filenameB = filenamePrefix + "B" + filenameSuffix;
-    cout << filenameA << endl;
-    cout << filenameB << endl;
+
+    string resultPrefix = "resultados/";
+    string filenameC = resultPrefix + "C" + filenameSuffix;
+    //cout << filenameA << endl;
+    //cout << filenameB << endl;
+
 
     int* matrixA = new int[m * m];
     int* matrixB = new int[m * m];
@@ -47,10 +51,11 @@ int main(int argc, char *argv[]) {
     multiply(m, matrixA, matrixB, matrixC);
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
 
-    auto duration = duration_cast<milliseconds>(t2 - t1).count();
-    cout << duration << "ms" << endl;
+    auto durationUs = duration_cast<microseconds>(t2 - t1).count();
+    auto durationMs = duration_cast<milliseconds>(t2 - t1).count();
+    cout << durationMs << "ms" << " | " << durationUs << "µs" << endl;
 
-    //printMatrix(m, matrixC);
+    saveMatrixToFile(filenameC, m, matrixC);
 
     return 0;
 }

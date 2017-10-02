@@ -3,13 +3,16 @@
 
 using namespace std;
 
-inline void printMatrix(int m, int matrix[]) {
+inline void saveMatrixToFile(string filename, int m, int matrix[]) {
+    ofstream file;
+    file.open(filename);
+
     int i, j;
     for(i = 0; i < m; ++i) {
         for(j = 0; j < m; ++j) {
-            cout << matrix[(i * m) + j] << " | ";
+            file << matrix[(i * m) + j] << " | ";
         }
-        cout << endl;
+        file << endl;
     }
 }
 
@@ -24,8 +27,7 @@ inline int readMatrixFromFile(string filename, int m, int matrix[]) {
 
     int m2, m3;
     file >> m2 >> m3;
-    //cout << "m2: " << m2 << endl;
-    //cout << "m3: " << m3 << endl;
+
     int i, j;
     for(i = 0; i < m; ++i) {
         for(j = 0; j < m; ++j) {
