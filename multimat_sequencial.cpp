@@ -51,10 +51,8 @@ int main(int argc, char *argv[]) {
     multiply(m, matrixA, matrixB, matrixC);
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
 
-    auto durationUs = duration_cast<microseconds>(t2 - t1).count();
-    auto durationMs = duration_cast<milliseconds>(t2 - t1).count();
     auto durationNs = duration_cast<nanoseconds>(t2 - t1).count();
-    cout << durationMs << "ms" << " | " << durationUs << "µs" << " | " << durationNs << "ns" << endl;
+    cout << durationNs / 1e6 << "ms" << endl;
 
     saveMatrixToFile(filenameC, m, matrixC);
 
