@@ -53,7 +53,8 @@ int main(int argc, char *argv[]) {
 
     auto durationUs = duration_cast<microseconds>(t2 - t1).count();
     auto durationMs = duration_cast<milliseconds>(t2 - t1).count();
-    cout << durationMs << "ms" << " | " << durationUs << "µs" << endl;
+    auto durationNs = duration_cast<nanoseconds>(t2 - t1).count();
+    cout << durationMs << "ms" << " | " << durationUs << "µs" << " | " << durationNs << "ns" << endl;
 
     saveMatrixToFile(filenameC, m, matrixC);
 
