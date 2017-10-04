@@ -1,0 +1,72 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[brazilian]{babel} % Hifenização e dicionário
+\usepackage[left=3.00cm, right=2.00cm, top=3.00cm, bottom=2.00cm]{geometry}
+%\usepackage{enumitem} % Para itemsep etc
+\usepackage{longtable} % Dependência do longtabu
+%\usepackage{tabu} % Para melhor criação de tabelas
+\usepackage{listings} % Para códigos
+%\usepackage{lstautogobble} % Códigos indentados corretamente
+\usepackage{color} % Para coloração de códigos
+%\usepackage{mathpazo} % Linux Libertine
+\usepackage{parskip} % Linha em branco entre parágrafos em vez de recuo
+\usepackage{graphicx}
+\usepackage{verbatim} % Para comentários
+\usepackage{amsmath} % bmod
+\usepackage[breaklinks]{hyperref}
+
+\begin{document}
+\begin{center}
+    \textsc{Universidade Federal do Rio Grande do Norte} \\
+    \textsc{Departamento de Informática e Matemática Aplicada}
+\end{center}
+
+\bigskip
+
+\begin{tabular}{@{}ll@{}}
+    \emph{Disciplina:} & DIM0612 --- Programação Concorrente \\
+    \emph{Docente:}    & Everton Ranielly de Sousa Cavalcante \\
+    \emph{Discente:}   & Felipe Cortez de Sá \\
+\end{tabular}
+
+\bigskip
+
+\begin{center}
+\large Multiplicação de matrizes
+\end{center}
+
+\bigskip
+
+\section{Introdução}
+Este relatório mostra os resultado do trabalho da multiplicação de matriz
+programada sequencialmente e com threads comparando os resultado etc etc etc
+
+\section{Detalhes da implementação}
+O problema foi resolvado utilizando a linguagem de programação C++11 com a
+biblioteca std::thread. Para compilar, no Mac foi selecionado o clang e em
+Ubuntu g++, ambos utilizando a flag -O2 para otimizações.
+
+\section{Estratégia}
+A matriz foi codificada como um vetor de tamanho $ n * n $. Para a implementação com $ t $ threads,
+cada thread é responsável pelo cálculo de $ \frac{n * n}{t} $ elementos da matriz $ C $. Caso a divisão não seja exata,
+a última thread calcula o resto dos elementos, ou seja, $ \frac{n * n}{t} + ((n * n) \mod t) $.
+
+\section{Medição de desempenho}
+Foi utilizada a biblioteca std::chrono para medir o tempo de execução entre o
+momento anterior à chamada da primeira thread e o posterior ao último join.
+
+\section{Metodologia}
+Os testes foram automatizados com um script programado em Python que executa os
+programas sequencial e concorrente com valores diferentes para número de
+threads utilizadas e retorna o mínimo, médio e máximo, bem como desenha gráficos
+comparando as velocidades de execução para cada configuração.
+
+\section{Resultados}
+gráficos do matplotlib
+tabela com mínimo, médio e máximo para cada dimensão da matriz
+
+\section{Discussão}
+A partir da realização desse trabalho foi possível concluir que o uso de
+threads pode aumentar o desempenho na resolução de problemas paralelos.
+
+\end{document}
