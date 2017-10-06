@@ -61,8 +61,6 @@ int main(int argc, char *argv[]) {
 
     string resultPrefix = "resultados/";
     string filenameC = resultPrefix + "C" + filenameSuffix;
-    //cout << filenameA << endl;
-    //cout << filenameB << endl;
 
     int* matrixA = new int[m * m];
     int* matrixB = new int[m * m];

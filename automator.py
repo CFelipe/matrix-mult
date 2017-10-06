@@ -41,17 +41,3 @@ boxplot_labels = [str(s) for s in sizes]
 plt.figure()
 plt.boxplot(boxplot_data, labels=boxplot_labels)
 plt.show()
-
-## Concorrente
-#print()
-#print("Concorrente (4 threads)")
-#for s in sizes:
-#    print("{size}x{size}: ".format(size=s).rjust(15), end="")
-#    out = subprocess.check_output("./multimat_concorrente {} {}".format(s, 4), shell=True)
-#    out = out[:-1].decode("utf-8")
-#    print(out)
-
-#print()
-#print("Sequencial")
-#for size, time in times_sequential.items():
-#    print(size.rjust(5), ":", time.rjust(5))
