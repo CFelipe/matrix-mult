@@ -37,37 +37,21 @@ for i in range(repeats):
         if k not in times_concurrent:
             times_concurrent[k] = {"mat_size": str(s) + "x" + str(s), "times": []}
         times_sequential[k]["times"].append(result_sequential)
-        times_concurrent[k]["times"].append(result_concurrent)
+        times_concurrent[k]["times"].append(result_threaded_4)
         print(k)
     print("---")
 
-#print(repeats, "repetições")
-#for s in sizes:
-#    print("Médias para " + str(s) + "x" + str(s) + ":")
-#    print(np.mean(times_sequential["t" + str(s)]["times"]), "ms", sep="")
+for s in sizes:
+    k = "t" + str(s)
+    print(k)
+    print("Média: ", np.mean(times_sequential[k]["times"]))
+    print("Desvio:", np.std(times_concurrent[k]["times"]))
 
-#boxplot_data = [times_sequential["t" + str(s)]["times"] for s in sizes]
-#boxplot_labels = [str(s) for s in sizes]
-boxplot_labels = ["512 (seq)", "512 (4 threads)"]
-plt.figure()
-plt.boxplot([times_sequential["t512"]["times"],
-            times_concurrent["t512"]["times"]],
-            positions = [1, 2],
-            widths = 0.6,
-            labels=boxplot_labels)
-#plt.boxplot(boxplot_data, labels=boxplot_labels)
-plt.show()
-
-## Concorrente
-#print()
-#print("Concorrente (4 threads)")
-#for s in sizes:
-#    print("{size}x{size}: ".format(size=s).rjust(15), end="")
-#    out = subprocess.check_output("./multimat_concorrente {} {}".format(s, 4), shell=True)
-#    out = out[:-1].decode("utf-8")
-#    print(out)
-
-#print()
-#print("Sequencial")
-#for size, time in times_sequential.items():
-#    print(size.rjust(5), ":", time.rjust(5))
+#boxplot_labels = ["512 (seq)", "512 (4 threads)"]
+#plt.figure()
+#plt.boxplot([times_sequential["t512"]["times"],
+#            times_concurrent["t512"]["times"]],
+#            positions = [1, 2],
+#            widths = 0.6,
+#            labels=boxplot_labels)
+#plt.show()
