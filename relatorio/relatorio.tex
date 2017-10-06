@@ -67,10 +67,9 @@ estratégias utilizadas e comparando resultados.
 
 \section{Detalhes da implementação}
 O problema foi resolvido utilizando a linguagem de programação C++11 com a
-biblioteca \code{std::thread}. No Mac foi selecionado o compilador \code{clang}
-e em Ubuntu \code{g++}, ambos utilizando a flag \code{-O2} para otimizações. As
-matrizes $ A $, $ B $ e $ C $ foram codificadas como vetores (arrays estilo C)
-de tamanho $ n^2 $.
+biblioteca \code{std::thread}. Foi selecionado o compilador \code{clang}
+com a flag \code{-O2} para otimizações. As matrizes $ A $, $ B $ e $ C $ foram
+codificadas como vetores (arrays estilo C) de tamanho $ n^2 $.
 
 Na implementação com $ t $ \emph{threads}, cada thread é responsável pelo
 cálculo de $ \frac{n^2}{t} $ elementos da matriz $ C $. Caso a divisão não seja
@@ -94,10 +93,21 @@ multiplicação e para depois dos laços. Na implementação com \emph{threads},
 posterior ao último \code{join()}.
 
 \subsection{Testes}
+Os testes foram realizados num MacBook Pro com sistema operacional Mac OS X El
+Capitan (10.11.6). O processador é um Intel Core i5, 2.5GHz com dois núcleos e
+a memória RAM é de 8GB.
+
 Os testes foram automatizados com um script programado em \emph{Python} que
 executa os programas sequencial e concorrente com valores diferentes para
 número de threads utilizadas e retorna o mínimo, médio e máximo, bem como
 desenha gráficos comparando as velocidades de execução para cada configuração.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=.7\textwidth]{512_20threads}
+\label{fig:f2}
+\caption{Tempos de execução médios para quantidades de threads diferentes}
+\end{figure}
 
 \section{Resultados}
 \begin{table}[h]\footnotesize

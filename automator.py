@@ -7,13 +7,12 @@ plt.style.use("ggplot")
 filenamePrefix = "matrizes/"
 filenameSuffix = ".txt"
 
-#sizes = [2 ** x for x in range(2, 12)][:-2]
-sizes = [512]
+sizes = [2 ** x for x in range(2, 12)]
+#sizes = [512]
 
 repeats = 20
 
-times_sequential = {}
-times_concurrent = {}
+times = {}
 
 def run_program(name, args):
     args = " ".join(args)
@@ -26,32 +25,23 @@ def run_program(name, args):
 
 for i in range(repeats):
     for s in sizes:
-        result_sequential = run_program("multimat_sequencial", [str(s)])
-        result_threaded_2 = run_program("multimat_concorrente", [str(s), '2'])
-        result_threaded_3 = run_program("multimat_concorrente", [str(s), '3'])
-        result_threaded_4 = run_program("multimat_concorrente", [str(s), '4'])
+        #result_sequential = run_program("multimat_sequencial", [str(s)])
+        result_threaded = run_program("multimat_concorrente", [str(s), '4'])
 
         k = "t" + str(s)
-        if k not in times_sequential:
-            times_sequential[k] = {"mat_size": str(s) + "x" + str(s), "times": []}
-        if k not in times_concurrent:
-            times_concurrent[k] = {"mat_size": str(s) + "x" + str(s), "times": []}
-        times_sequential[k]["times"].append(result_sequential)
-        times_concurrent[k]["times"].append(result_threaded_4)
+        if k not in times:
+            times[k] = {"mat_size": str(s) + "x" + str(s), "times": []}
+        times[k]["times"].append(result_threaded)
         print(k)
     print("---")
 
-for s in sizes:
-    k = "t" + str(s)
-    print(k)
-    print("Média: ", np.mean(times_sequential[k]["times"]))
-    print("Desvio:", np.std(times_concurrent[k]["times"]))
-
-#boxplot_labels = ["512 (seq)", "512 (4 threads)"]
-#plt.figure()
-#plt.boxplot([times_sequential["t512"]["times"],
-#            times_concurrent["t512"]["times"]],
-#            positions = [1, 2],
-#            widths = 0.6,
-#            labels=boxplot_labels)
-#plt.show()
+with open("resultados.txt", "a") as rfile:
+    for s in sizes:
+        k = "t" + str(s)
+        print(k, file=rfile)
+        print("threaded (4)", file=rfile)
+        print("med: ", np.mean(times[k]["times"]), file=rfile)
+        print("max: ", np.amax(times[k]["times"]), file=rfile)
+        print("min: ", np.amin(times[k]["times"]), file=rfile)
+        print("std: ", np.std(times[k]["times"]), file=rfile)
+        print("---", file=rfile)
