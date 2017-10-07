@@ -8,7 +8,6 @@ filenamePrefix = "matrizes/"
 filenameSuffix = ".txt"
 
 sizes = [2 ** x for x in range(2, 12)]
-#sizes = [512]
 
 repeats = 20
 

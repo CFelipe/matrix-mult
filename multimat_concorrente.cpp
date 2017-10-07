@@ -52,8 +52,8 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    int m = atoi(argv[1]);          // Substituir por strtol pra detectar erros
-    int threadQty = atoi(argv[2]);  // Idem
+    int m = atoi(argv[1]);
+    int threadQty = atoi(argv[2]);
     string filenamePrefix = "matrizes/";
     string filenameSuffix = to_string(m) + "x" + to_string(m) + ".txt";
     string filenameA = filenamePrefix + "A" + filenameSuffix;

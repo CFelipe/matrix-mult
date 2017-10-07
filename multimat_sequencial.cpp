@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-    int m = atoi(argv[1]); // Substituir por strtol pra detectar erros
+    int m = atoi(argv[1]);
     string filenamePrefix = "matrizes/";
     string filenameSuffix = to_string(m) + "x" + to_string(m) + ".txt";
     string filenameA = filenamePrefix + "A" + filenameSuffix;
@@ -37,9 +37,6 @@ int main(int argc, char *argv[]) {
 
     string resultPrefix = "resultados/";
     string filenameC = resultPrefix + "C" + filenameSuffix;
-    //cout << filenameA << endl;
-    //cout << filenameB << endl;
-
 
     int* matrixA = new int[m * m];
     int* matrixB = new int[m * m];
